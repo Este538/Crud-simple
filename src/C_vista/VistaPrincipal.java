@@ -82,6 +82,24 @@ public class VistaPrincipal extends javax.swing.JFrame {
             }
         });
 
+        txtCorreo.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtCorreoKeyTyped(evt);
+            }
+        });
+
+        txtNombre.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtNombreKeyTyped(evt);
+            }
+        });
+
+        txtTelefono.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtTelefonoKeyTyped(evt);
+            }
+        });
+
         btnGuardar.setText("Guardar");
 
         btnListar.setText("Listar");
@@ -262,6 +280,21 @@ public class VistaPrincipal extends javax.swing.JFrame {
     private void txtIDActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtIDActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtIDActionPerformed
+
+    private void txtNombreKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNombreKeyTyped
+        final int limiteNombre = 35;
+        if(txtNombre.getText().length() >= limiteNombre) evt.consume();
+    }//GEN-LAST:event_txtNombreKeyTyped
+
+    private void txtCorreoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCorreoKeyTyped
+        int limiteCorreo = 35;
+        if(txtCorreo.getText().length() >= limiteCorreo) evt.consume();
+    }//GEN-LAST:event_txtCorreoKeyTyped
+
+    private void txtTelefonoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtTelefonoKeyTyped
+        final int limiteDigitos = 9;
+        if(txtTelefono.getText().length() >= limiteDigitos) evt.consume();
+    }//GEN-LAST:event_txtTelefonoKeyTyped
 
     /**
      * @param args the command line arguments
