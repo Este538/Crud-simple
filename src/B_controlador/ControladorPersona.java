@@ -18,13 +18,20 @@ import javax.swing.table.DefaultTableModel;
 /**
  *
  * @author Esteban Alfonso Pacheco Serralta
- * Fecha: 18/02/2023
+ * @since  18/02/2023
+ * @version 1.0 
+ * 
+ * Descripción general. Realizar las operaciones que fueron seleccionadas
+ * por parte del usuario y realizar el control de las modificaciones a la 
+ * base de datos.
  */
 public class ControladorPersona implements ActionListener{
-    private PersonaDAO datosPersona = new PersonaDAO();
-    private Persona persona = new Persona();
+    private final PersonaDAO datosPersona = new PersonaDAO();
+    private final Persona persona = new Persona();
     private VistaPrincipal ventanaCentral = new VistaPrincipal();
     private DefaultTableModel tablaPersona = new DefaultTableModel();
+    private final int noSeleccion = -1;
+    private final int agregado = 1;
     
     public ControladorPersona(VistaPrincipal ventanaPrincipal){
         this.ventanaCentral = ventanaPrincipal;
@@ -51,7 +58,7 @@ public class ControladorPersona implements ActionListener{
        
        if(evento.getSource() == ventanaCentral.getBtnEditar()){
            int fila = ventanaCentral.getTablaCrud().getSelectedRow();
-           if(fila == -1){
+           if(fila == noSeleccion){
                JOptionPane.showMessageDialog(ventanaCentral, "Debe seleccionar una fila");
            }else{
                int id = Integer.parseInt((String)ventanaCentral.getTablaCrud().getValueAt(fila, 0).toString());
@@ -77,7 +84,7 @@ public class ControladorPersona implements ActionListener{
        if(evento.getSource() == ventanaCentral.getBtnBorrar()){
            int fila = ventanaCentral.getTablaCrud().getSelectedRow();
            int id = Integer.parseInt((String)ventanaCentral.getTablaCrud().getValueAt(fila, 0).toString());
-           if(fila == - 1){
+           if(fila == noSeleccion){ 
                JOptionPane.showMessageDialog(ventanaCentral, "Debe seleccionar un usuario");
            }else{
                datosPersona.eliminar(id);
@@ -94,6 +101,9 @@ public class ControladorPersona implements ActionListener{
     
     private final int numeroColumnas = 4;
     
+    /**
+     * Actualizar los datos previamente seleccionados de la tabla.
+     */
     public void actualizar(){
         int id = Integer.parseInt(ventanaCentral.getTxtID().getText());
         String nombre = ventanaCentral.getTxtNombre().getText();
@@ -104,12 +114,16 @@ public class ControladorPersona implements ActionListener{
         persona.setCorreo(correo);
         persona.setTelefono(tel);
         int result = datosPersona.actualizar(persona);
-        if(result == 1){
+        if(result == agregado){
             JOptionPane.showMessageDialog(ventanaCentral, "Usuario actualizado");
         }else{
             JOptionPane.showMessageDialog(ventanaCentral, "Error");
         }
     }
+    
+    /**
+     * Agregar datos nuevos a la tabla.
+     */
     public void agregar(){
         String nombre = ventanaCentral.getTxtNombre().getText();
         String correo = ventanaCentral.getTxtCorreo().getText();
@@ -121,13 +135,18 @@ public class ControladorPersona implements ActionListener{
         
         int result = datosPersona.agregar(persona);
         
-        if(result == 1){
+        if(result == agregado){
             JOptionPane.showMessageDialog(ventanaCentral, "Ha sido agregado");
         } else {
             JOptionPane.showMessageDialog(ventanaCentral, "Error en registro");
         }
     }
     
+    /**
+     * Listar cada dato que esté presente en la tabla con los datos más
+     * recientes.
+     * @param tabla 
+     */
     public void listar(JTable tabla){
         tablaPersona = (DefaultTableModel)tabla.getModel();
         List<Persona>listaPersona = datosPersona.listar();

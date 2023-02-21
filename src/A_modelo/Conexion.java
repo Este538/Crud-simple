@@ -7,7 +7,10 @@ package A_modelo;
 /**
  *
  * @author Esteban Alfonso Pacheco Serralta.
- * Fecha: 18/02/2023
+ * @since 18/02/2023
+ * @version 1.0
+ * Descripción general. Realiza una conexión a una base de datos local.
+ *  
  */
 
 import java.sql.Connection;
@@ -15,6 +18,15 @@ import java.sql.DriverManager;
 
 public class Conexion {
     private Connection conexion;
+    
+    /**
+     * La clase realiza una llamada a la base de datos para
+     * iniciar la conexión, para ello el método debe enviar
+     * los valores de (url, user, password) para obtener
+     * acceso.
+     * 
+     * @return conexion
+     */
     
     public Connection getConexion(){
         String url = "jdbc:mysql://localhost:3306/bd_simple_crud";

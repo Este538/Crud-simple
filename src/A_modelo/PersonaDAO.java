@@ -7,7 +7,10 @@ package A_modelo;
 /**
  *
  * @author Esteban Alfonso Pacheco Serralta
- * Fecha:18/02/2023
+ * @since 18/02/2023
+ * @version 1.0
+ * 
+ * Descripción general.Generar las consultas o cambios en la base de datos.
  */
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -23,6 +26,12 @@ public class PersonaDAO {
     private PreparedStatement ps;
     private ResultSet rs;
     
+    /**
+     * En base a fila seleccionada de tabla, realizar cambio
+     * en el campo o los campos modificados.
+     * @param person
+     * @return boolean 
+     */
     public int actualizar(Persona person){
         String sql = "update persona set Nombre=?, Correo=?, Telefono=? where Id=?";
         int result = 0;
@@ -45,6 +54,11 @@ public class PersonaDAO {
         return 1;
     }
     
+    /**
+     * Agregar datos en la tabla previamente escritos.
+     * @param person
+     * @return 
+     */
     public int agregar(Persona person){
         String sql = "insert into persona(Nombre, Correo, Telefono) values(?, ?, ?)";
         try{
@@ -60,6 +74,10 @@ public class PersonaDAO {
         return 1;
     }
     
+    /**
+     * Con base a un elemento de fila seleccionado, eliminarlo de la tabla.
+     * @param id 
+     */
     public void eliminar(int id){
         String sql = "delete from persona where Id=" +id;
         try{
@@ -72,6 +90,10 @@ public class PersonaDAO {
         
     }
     
+    /**
+     * Acción que permite listar por cada operación realizada.
+     * @return 
+     */
     public List listar(){
         List<Persona>lista_persona = new ArrayList<>();
         String sql = "select * from persona";
