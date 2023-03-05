@@ -284,6 +284,9 @@ public class VistaPrincipal extends javax.swing.JFrame {
     private void txtNombreKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNombreKeyTyped
         final int limiteNombre = 35;
         if(txtNombre.getText().length() >= limiteNombre) evt.consume();
+        
+        char letra = evt.getKeyChar();
+        if((letra < 'a' || letra > 'z')&&(letra < 'A' || letra > 'Z')) evt.consume();
     }//GEN-LAST:event_txtNombreKeyTyped
 
     private void txtCorreoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCorreoKeyTyped
@@ -294,6 +297,9 @@ public class VistaPrincipal extends javax.swing.JFrame {
     private void txtTelefonoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtTelefonoKeyTyped
         final int limiteDigitos = 9;
         if(txtTelefono.getText().length() >= limiteDigitos) evt.consume();
+        
+        char letra = evt.getKeyChar();
+        if(letra < '0' || letra > '9') evt.consume();
     }//GEN-LAST:event_txtTelefonoKeyTyped
 
     /**
