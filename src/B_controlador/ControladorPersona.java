@@ -165,6 +165,14 @@ public class ControladorPersona implements ActionListener{
         
     }
     
+    /*
+        Método que limpia la tabla de acuerdo a siguiente lógica:
+            1.- la tabla elimina primer elemento.
+            2.- la tabla se corre lugar arriba.
+            3.- para permitir que siga el incremento, se hace un reinicio en el bucle.
+            4.- nunca se sale de la posición cero.
+            5.- una vez que no queden elementos, termina.
+    */
     private void limpiarTabla(){
         for(int i= 0; i < ventanaCentral.getTablaCrud().getRowCount(); i++){
             tablaPersona.removeRow(i);
