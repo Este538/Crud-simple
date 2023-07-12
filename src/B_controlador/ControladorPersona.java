@@ -9,7 +9,6 @@ import A_modelo.PersonaDAO;
 import C_vista.VistaPrincipal;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
@@ -58,9 +57,7 @@ public class ControladorPersona implements ActionListener{
        
        if(evento.getSource() == ventanaCentral.getBtnEditar()){
            int fila = ventanaCentral.getTablaCrud().getSelectedRow();
-           if(fila == noSeleccion){
-               JOptionPane.showMessageDialog(ventanaCentral, "Debe seleccionar una fila");
-           }else{
+           try {
                int id = Integer.parseInt((String)ventanaCentral.getTablaCrud().getValueAt(fila, 0).toString());
                String nombre = (String)ventanaCentral.getTablaCrud().getValueAt(fila, 1);
                String correo = (String)ventanaCentral.getTablaCrud().getValueAt(fila, 2);
@@ -70,15 +67,23 @@ public class ControladorPersona implements ActionListener{
                ventanaCentral.getTxtNombre().setText(nombre);
                ventanaCentral.getTxtCorreo().setText(correo);
                ventanaCentral.getTxtTelefono().setText(telefono);
+               
+           }catch(ArrayIndexOutOfBoundsException noSeleccion){
+               JOptionPane.showMessageDialog(ventanaCentral, "Debe seleccionar una fila");
            }
+               
            limpiarTabla();
            listar(ventanaCentral.getTablaCrud());
        }
        
        if(evento.getSource()== ventanaCentral.getBtnAceptar()){
+         try{
            actualizar();
            limpiarTabla();
            listar(ventanaCentral.getTablaCrud());
+         }catch(Exception event){
+            System.out.println("Button failure using " + event);
+        }       
        }
        
        if(evento.getSource() == ventanaCentral.getBtnBorrar()){
@@ -93,6 +98,7 @@ public class ControladorPersona implements ActionListener{
            }
            actualizar();
            limpiarTabla();
+           this.listar(ventanaCentral.getTablaCrud());
        }
        
     }
@@ -133,12 +139,16 @@ public class ControladorPersona implements ActionListener{
         persona.setCorreo(correo);
         persona.setTelefono(tel);
         
-        int result = datosPersona.agregar(persona);
+        if(!"".equals(persona.getNombre()) || !"".equals(persona.getCorreo()) || !"".equals(persona.getTelefono())){
+            int result = datosPersona.agregar(persona);
         
-        if(result == agregado){
-            JOptionPane.showMessageDialog(ventanaCentral, "Ha sido agregado");
-        } else {
-            JOptionPane.showMessageDialog(ventanaCentral, "Error en registro");
+            if(result == agregado){
+                JOptionPane.showMessageDialog(ventanaCentral, "Ha sido agregado");
+            } else {
+                JOptionPane.showMessageDialog(ventanaCentral, "Error en registro");
+            }
+        } else{
+            JOptionPane.showMessageDialog(ventanaCentral, "No se aceptan valores vacios");
         }
     }
     
