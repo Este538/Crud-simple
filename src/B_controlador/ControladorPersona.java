@@ -139,7 +139,7 @@ public class ControladorPersona implements ActionListener{
         persona.setCorreo(correo);
         persona.setTelefono(tel);
         
-        if(!"".equals(persona.getNombre()) || !"".equals(persona.getCorreo()) || !"".equals(persona.getTelefono())){
+        if(encontrarCadenaVacia()){
             int result = datosPersona.agregar(persona);
         
             if(result == agregado){
@@ -188,6 +188,13 @@ public class ControladorPersona implements ActionListener{
             tablaPersona.removeRow(i);
             i = i - 1;
         }
+    }
+    
+    private boolean encontrarCadenaVacia(){
+        if(!"".equals(persona.getNombre()) || !"".equals(persona.getCorreo()) || !"".equals(persona.getTelefono())){
+            return true;
+        }
+        return false;
     }
     
 }
